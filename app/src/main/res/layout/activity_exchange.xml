@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wallet:"
+            android:id="@+id/walletTextView"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_weight="1"/>
+
+        <Space
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_weight="0.5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/walletSizeTextView"
+            android:layout_weight="1"
+            android:textSize="@dimen/abc_text_size_display_1_material"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/currencyValue"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/abc_text_size_display_2_material"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buy_button"
+            android:id="@+id/buyButton"
+            android:maxWidth="100dp"
+            android:layout_weight="1"/>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="6dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_button"
+            android:id="@+id/sellButton"
+            android:layout_gravity="right"
+            android:maxWidth="100dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
