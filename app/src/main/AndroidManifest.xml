@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".CurrencyProvider"
+            android:authorities="ru.ifmo.md.exam0"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <service
+            android:name=".MyIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
