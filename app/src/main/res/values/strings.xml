@@ -3,6 +3,8 @@
 
     <string name="app_name">Exam 0</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">My account</string>
+    <string name="buy_button">Buy</string>
+    <string name="sell_button">Sell</string>
 
 </resources>
