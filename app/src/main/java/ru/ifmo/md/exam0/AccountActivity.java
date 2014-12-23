@@ -6,46 +6,23 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.SimpleCursorAdapter;
 
 
-public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AccountActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, TradingActivity.class);
-                startActivity(intent.putExtra("value", ((Cursor) getListAdapter().getItem(position)).getString(1)));
-            }
-        });
+        setContentView(R.layout.activity_account);
 
         fillData();
-
-        Intent serviceIntent = new Intent(this, MyService.class);
-        startService(serviceIntent);
 
     }
 
@@ -61,9 +38,31 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_account, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = { MyTable.COLUMN_ID, MyTable.COLUMN_NAME, MyTable.COLUMN_VALUE };
-        return new CursorLoader(this, MyContentProvider.CONTENT_URI, projection, MyTable.COLUMN_TYPE + " = ?", new String[]{"1"}, null);
+        return new CursorLoader(this, MyContentProvider.CONTENT_URI, projection, MyTable.COLUMN_TYPE + " = ?", new String[]{"2"}, null);
     }
 
     @Override

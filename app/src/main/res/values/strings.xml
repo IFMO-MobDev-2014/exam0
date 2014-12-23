@@ -4,5 +4,10 @@
     <string name="app_name">Exam 0</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="wallet_button">My Wallet</string>
+    <string name="title_activity_trading">TradingActivity</string>
+    <string name="buybuy">Buy</string>
+    <string name="sellsell">Sell</string>
 
 </resources>
