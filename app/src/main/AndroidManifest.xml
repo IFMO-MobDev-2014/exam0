@@ -7,14 +7,25 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service android:name=".MyTrueService" />
+
+        <provider
+            android:name=".Provider"
+            android:authorities="ru.ifmo.md.exam0.Provider"
+            android:exported="false" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".DBTEST"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".wallet"
+            android:label="@string/title_activity_wallet" >
         </activity>
     </application>
 
