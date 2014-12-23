@@ -1,5 +1,9 @@
 package ru.ifmo.md.exam0;
 
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -21,6 +25,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -53,6 +59,7 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private CurrencyAdapter adapter;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
@@ -97,17 +104,65 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
+
+        Cursor c = getActivity().getContentResolver().query(
+                ExchangeProvider.CURRENCY_URI, null, null, null, ExchangeProvider._ID);
+        ArrayList<String> currencyList = new ArrayList<>();
+        while (c.moveToNext()) {
+            if (c.getInt(c.getColumnIndex(ExchangeProvider.HIDDEN)) == 0)
+                currencyList.add(c.getString(c.getColumnIndex(ExchangeProvider.NAME)));
+        }
+        adapter = new CurrencyAdapter(getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+                currencyList);
+        setActualValues();
+        getActivity().getContentResolver().registerContentObserver(ExchangeProvider.CURRENCY_URI,
+                true, new CurrencyObserver(new Handler(), this));
+        mDrawerListView.setAdapter(adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
+    }
+
+    private void setActualValues() {
+        Cursor c = getActivity().getContentResolver().query(
+                ExchangeProvider.CURRENCY_URI, null, null, null, ExchangeProvider._ID);
+        ArrayList<Integer> valuesList = new ArrayList<>();
+        while (c.moveToNext()) {
+            if (c.getInt(c.getColumnIndex(ExchangeProvider.HIDDEN)) == 0)
+                valuesList.add(c.getInt(c.getColumnIndex(ExchangeProvider.VALUE)));
+        }
+        c.close();
+
+        if (valuesList.size() == adapter.getCount()) {
+            adapter.setValues(valuesList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public String getTitle(int n) {
+        if (adapter.getCount() > n && n >= 0) {
+            return adapter.getName(n);
+        }
+        return null;
+    }
+
+    static class CurrencyObserver extends ContentObserver {
+        NavigationDrawerFragment fragment;
+
+        public CurrencyObserver(Handler handler, NavigationDrawerFragment fragment) {
+            super(handler);
+            this.fragment = fragment;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            this.onChange(selfChange, ExchangeProvider.CURRENCY_URI);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            fragment.setActualValues();
+        }
     }
 
     public boolean isDrawerOpen() {
