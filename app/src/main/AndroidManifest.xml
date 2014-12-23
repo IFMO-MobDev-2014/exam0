@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo">
         <activity
-            android:name=".MainActivity"
+            android:name=".CurrencyList"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CurrencyMonitor"
+            android:label="Currency Details"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".CurrencyRetriever"
+            android:enabled="true"
+            android:exported="false"></service>
+
+        <provider
+            android:name=".WalletProvider"
+            android:authorities="net.dimatomp.wallet.provider"
+            android:enabled="true"
+            android:exported="false"></provider>
     </application>
 
 </manifest>
