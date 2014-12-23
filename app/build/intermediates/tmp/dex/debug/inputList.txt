@@ -1,0 +1,5 @@
+/home/noname/AndroidITMO/exam0/app/build/intermediates/classes/debug
+/home/noname/AndroidITMO/exam0/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-1cd1039154f1bb9cc0d4a9da3e8b7ec509fd8b06.jar
+/home/noname/AndroidITMO/exam0/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-18ebc9d00684679665be778d82557172d0001a05.jar
+/home/noname/AndroidITMO/exam0/app/build/intermediates/pre-dexed/debug/classes-75d658e9cc038b8524e21db08e185394bc35ed70.jar
+/home/noname/AndroidITMO/exam0/app/build/intermediates/pre-dexed/debug/classes-b8ee8afc53c0a5f96ddac5d105ac71d6e97f4f84.jar
