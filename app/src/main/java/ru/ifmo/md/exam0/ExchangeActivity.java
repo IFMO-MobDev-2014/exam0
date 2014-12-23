@@ -5,9 +5,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import ru.ifmo.md.exam0.db.CurrencyContentProvider;
 import ru.ifmo.md.exam0.db.CurrencyTable;
+import ru.ifmo.md.exam0.service.CurrencyUpdateService;
 
 
 public class ExchangeActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -61,6 +64,13 @@ public class ExchangeActivity extends ActionBarActivity implements LoaderManager
         curRate = (TextView) findViewById(R.id.cur_rate);
 
         currentCurrency = getIntent().getStringExtra(EX_CUR);
+
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver,
+                new IntentFilter(CurrencyUpdateService.ACTION_UPDATE));
+
+        updateWallet();
+        updateTextViews();
 
     }
 
